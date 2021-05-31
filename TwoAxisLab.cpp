@@ -1,29 +1,33 @@
 #include <iostream>
 #include<fstream>
 #include<math.h>
-#define l1=16;
-#define l2=6;
-#define l3=15;
-#define l4=15;
-#define l5=6;
-#define dt=0.4;
+#define l1 16
+#define l2 6
+#define l3 15
+#define l4 15
+#define l5 6
+#define dt 0.4
 using namespace std;
 bool InBounds(float x,float y){
     float d= x-l1;
-    if((Math.pow(x,2)+Math.pow(y,2))>(Math.pow((l2+l3),2)))
+    if((pow(x,2)+pow(y,2))>(pow((l2+l3),2)))
     return false;
-    else if((Math.pow(x,2)+Math.pow(y,2))<(Math.pow((l2-l3),2)))
+    else if((pow(x,2)+pow(y,2))<(pow((l2-l3),2)))
     return false;
-    else if((Math.pow(d,2)+Math.pow(y,2))>(Math.pow((l4+l5),2)))
+    else if((pow(d,2)+pow(y,2))>(pow((l4+l5),2)))
     return false;
-     else if((Math.pow(d,2)+Math.pow(y,2))<(Math.pow((l4-l5),2)))
+     else if((pow(d,2)+pow(y,2))<(pow((l4-l5),2)))
     return false;
     else return true;
 
 
 }
 float Opt(float ang1a, float ang1b,float theta){
-	return Math.Min(Math.abs(ang1a-thata),Math.abs(ang1a-thata));
+    if(abs(ang1a-thata)<abs(ang1a-thata))
+    return ang1;
+    else
+    return ang1b;
+	
 }
 bool inverse_kinematics(float x, float y, float &ang1_1, float &ang2_1, float &ang1_2, float &ang2_2)
 {
