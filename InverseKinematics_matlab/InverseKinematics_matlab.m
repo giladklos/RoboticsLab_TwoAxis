@@ -18,7 +18,7 @@ l3=15;
 l4=15;
 l5=6;
 curr_ang=[];
-ang_send[];
+ang_send=[];
 flag=0;
 %% input the desired point and check if point is available
 while(1)
@@ -35,6 +35,11 @@ while(1)
        des(1)=input("enter the desired x value");
        des(2)=input("enter the desired y value");
        flag=InBound(des);
+       % add to break here if -1,-1
+    end
+    
+    if (des(1)==-1 && des(2)==-1)
+        break;
     end
 %% insert inverse kinematics here
 d1=(des(1)^2+des(2)^2)^(1/2);
@@ -58,13 +63,15 @@ ang_send(2)=opt(ang2_1,ang2_2,cerr_ang(2));
 fwrite(s,ang_send(1));
 fwrite(s,ang_send(2));
 %% wait untill all data is returned
+while ~s.byteavailable
+end
 while s.bytesavailable<2 
  disp('.'); 
  end
 
 %% update the current valuse before  running again
 curr_ang=fread(s,2);
-if(curr_ang(1)=='/' || curr_ang(2)=='/'
+if(curr_ang(1)=='/' || curr_ang(2)=='/')
  break;
 end
 
