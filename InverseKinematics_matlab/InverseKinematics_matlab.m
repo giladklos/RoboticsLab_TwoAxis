@@ -18,14 +18,37 @@ l3=15;
 l4=15;
 l5=6;
 curr_ang=[];
+curr_state=[0,0];
+
+dx=0.5;
+dy=0.5;
 ang_send=[];
 flag=0;
+%----user interface by keyboard configurations----
+h_fig = figure;
+set(h_fig,'KeyPressFcn',@myfun);
+k = waitforbuttonpress;
+% 28 leftarrow
+% 29 rightarrow
+% 30 uparrow
+% 31 downarrow
+
+
 %% input the desired point and check if point is available
 while(1)
-    des(1)=input("enter the desired x value");
-    des(2)=input("enter the desired y value");
-    % input the desired valuse to be [-1,-1] if you want to exit the script
-    % and terminate the connection
+    value = double(get(gcf,'CurrentCharacter'));
+    if(value==28)
+     des(1)=des(1)-dx; 
+    end
+    if(value==29)
+     des(1)=des(1)+dx; 
+    end
+    if(value==30)
+     des(1)=des(2)+dy; 
+    end
+    if(value==31)
+     des(1)=des(2)-dy; 
+    end
     if (des(1)==-1 && des(2)==-1)
         break;
     end
@@ -50,7 +73,7 @@ a2=atans(des(2),des(1));
 ang1_1 = a2 + beta2p;
 ang1_2 = a2 + beta2m;
 beta5p=acos((l5^2+d2^2-l4^2)/(2*l5*d2));
-beta5m=-acos((l5^2+d2^2-l4^2)/(2*l5*d2));
+beta5m=-1*acos((l5^2+d2^2-l4^2)/(2*l5*d2));
 a5 = atan2(des(2), (des(1) - l1));
 ang2_1 = a5 + beta5p;
 ang2_2 = a5 + beta5m;
@@ -95,9 +118,14 @@ else
 end
 end
 function opta=opt(opt1,opt2,curr_ang_theta)
-if(abs(opt1-curr_ang_theta)<abs(opt2-curr_ang_theta)
+if(abs(opt1-curr_ang_theta)<abs(opt2-curr_ang_theta))
  opta=opt1;
 else
  opta=opt2;   
 end
+end
+%%user interface
+function myfun(src,event)
+   disp(event.Key);
+   value = double(get(gcf,'CurrentCharacter'));
 end
